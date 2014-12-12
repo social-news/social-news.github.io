@@ -290,12 +290,12 @@
 	
 	
 	<p>Next, we use the Elbow Method to arrive at a reasonable k for the clustering algorithm.</p>
-	<img src="img/_Cluster/elbowMethodSocialMetric.png" alt="Elbow for Social Metrics KMeans Clustering Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/elbowMethodSocialMetric.png" alt="Elbow for Social Metrics KMeans Clustering Figure" align="center" class="img-responsive" />
 	<p>From the graph above, a reasonable k for the average social metrics per bitly click data will be k = 4. The Elbow Method's* premise is that if the marginal improvement in variations explained starts to decrease as we add in more clusters, we would have arrived at a somewhat optimal k. This is very similar to the F-test where if the variations explained by a newly added set of predictors doesn't decrease the sum of squares much, we would not reject the null hypothesis. From this phenomenon, the optimal K can be spotted at the "elbow" of the graph as shown above.</p>
 	<br/>
 	
 	<p>Having chosen k = 4 for our number of clusters, we can now plot the clusters and their corresponding cluster boundaries.</p>
-	<img src="img/_Cluster/1. KMeans - socialMetrics.png" alt="K Means Clustering with Social Metrics Data Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/1. KMeans - socialMetrics.png" alt="K Means Clustering with Social Metrics Data Figure" align="center" class="img-responsive" />
 	<h4>Discussion</h4>
 	<p>From the elbow method, we saw that a reasonable k for this particular k means cluster is k = 4. After performing the clustering, we plot the 4 decision boundaries and see that there are four distinct groups out of the 23 news organizations.</p>
 	<p>The <strong>green</strong> group comprises of Huffington Post, USA Today, and Fox News. These news organizations tend have high social metric per bitly click* for Facebook likes and shares, and around average Twitter retweets and favorites per bitly link click. It is interesting to note that the three news organizations have Facebook social metrics per bitly link click to be greater than 1. This suggests that readers are not reading the full article and are liking the viral content based on headlines, images, or videos on the social media.</p>
@@ -310,19 +310,19 @@
 	<hr/>
 	
 	<h4>Fox News, New York Times Facebook and Twitter Examples</h4>
-	<img src="img/_Cluster/Fox News Video Post.png" alt="Fox News Facebook Video Post" align="center" class="img-responsive" />
+	<img src="img/cluster/Fox News Video Post.png" alt="Fox News Facebook Video Post" align="center" class="img-responsive" />
 	</br>
-	<img src="img/_Cluster/Fox News Facebook Bitly Stats.png" alt="Fox News Facebook Bitly Stats" align="center" class="img-responsive" />
+	<img src="img/cluster/Fox News Facebook Bitly Stats.png" alt="Fox News Facebook Bitly Stats" align="center" class="img-responsive" />
 	<p>The images above show a Fox News article where the Facebook likes = 16,956, and bitly total clicks = 4,299. This gives a likes PBC at 16,956/4,299 = 3.94. This is an example where the number of likes is greater than bitly clicks and the post is accompanied with descriptions as well as a video. We believe that viewers have enough information to make up their minds to like the post with just the comments, description, and video. This is different from NYTimes articles where there is usually just an image accompanied with the description as seen before.</p>
-	<img src="img/_Cluster/NYTimes Facebook Post.png" alt="NYTimes Facebook Post" align="center" class="img-responsive" />
+	<img src="img/cluster/NYTimes Facebook Post.png" alt="NYTimes Facebook Post" align="center" class="img-responsive" />
 	</br>
 	<p>Another interesting difference between Facebook and Twitter is that Twitter has a 140 character limit and Twitter posts are usually not accompanied with images and rarely have videos. Here are some examples below to illustrate the point.</p>
-	<img src="img/_Cluster/Fox News Tweets.png" alt="Fox News Tweets" align="center" class="img-responsive" />
-	<img src="img/_Cluster/NYTimes Tweets.png" alt="NYTimes Tweets" align="center" class="img-responsive" />
+	<img src="img/cluster/Fox News Tweets.png" alt="Fox News Tweets" align="center" class="img-responsive" />
+	<img src="img/cluster/NYTimes Tweets.png" alt="NYTimes Tweets" align="center" class="img-responsive" />
 	</br>
 	<hr/>
 	
-	<img src="img/_Cluster/1. KMeans - socialMetrics Subjective.png" alt="K Means Clustering with Social Metrics Data using Subjective Categories Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/1. KMeans - socialMetrics Subjective.png" alt="K Means Clustering with Social Metrics Data using Subjective Categories Figure" align="center" class="img-responsive" />
 	<h4>Discussion</h4>
 	<p>The above figure is another perspective of the K Means clusters. The decision boundaries of the 4 clusters from the original K Means are preserved here. However, in this figure, each marker, denoting each news organization, is now colored by the our subjective categorization of the media industry. Note that, we came up with this categorization before we ran this particular clustering analysis.</p>
 	<p>Using our subjective categorization in our analysis, we come up with some interesting results. From the above plot, we can see that within the <strong>green</strong> decision boundary, all of the news organizations are ones that are known to be sensational. This group is associated with high Facebook likes and shares per bitly click (PBC). Similarly, msnbc has strong Twitter retweets and favorites PBC and it is an outlier in the <strong>red</strong> group.</p>
@@ -332,7 +332,7 @@
 	<p><strong>Note:</strong> Novel points to digital media. Anonymous points to wire and aggregator media.</p>
 	<br/>
 	
-	<img src="img/_Cluster/1. KMeans - socialMetrics Category.png" alt="K Means Clustering with Social Metrics Data using Media Categories Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/1. KMeans - socialMetrics Category.png" alt="K Means Clustering with Social Metrics Data using Media Categories Figure" align="center" class="img-responsive" />
 	<h4>Discussion</h4>
 	<p>The plot above is the 3rd perspective of the same K Means clustering result. This time, we color each marker with the organization's type of media. We can derive much of the same insights as the above two figures. In addition, it can be seen in the figure that even within cable media, the social metrics per bitly click is very different (CNN vs. Fox News vs. msnbc). Moreover, we can also see this for newspaper (USA Today vs. NYTimes vs. LA Times). Lastly, it is interesting to see that all of the online media are in teal cluster boundary and all of the newsweekly are in the blue cluster boundary. Therefore, the traditional categorization of news organizations do not necessarily apply to their online social presence as seen in the clustering analysis.</p>
 	<br/>
@@ -350,11 +350,11 @@
 	<p>We define the Average Proportion of Positive, Negative, or Neutral as the following: Average Proportion of Positive articles on Twitter for NYTimes = number of articles classified as Positive/number of articles posted on NYTime's Twitter handle.</p>
 	
 	<p>Again, we use the Elbow Method to arrive at a reasonable k for the clustering algorithm.</p>
-	<img src="img/_Cluster/elbowMethodSentiment.png" alt="Elbow for Sentiment KMeans Clustering Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/elbowMethodSentiment.png" alt="Elbow for Sentiment KMeans Clustering Figure" align="center" class="img-responsive" />
 	<p>From the graph above, a reasonable k for the average Twitter and Facebook text sentiment data will be k = 5.</p>
 	<br/>
 	
-	<img src="img/_Cluster/2. KMeans - sentimentOnly.png" alt="K Means Clustering with Social Metrics Data Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/2. KMeans - sentimentOnly.png" alt="K Means Clustering with Social Metrics Data Figure" align="center" class="img-responsive" />
 	<h4>Discussion</h4>
 	<p>From the elbow method, we saw that a reasonable k for this particular k means cluster is k = 5. After performing the clustering, we plot the 5 cluster boundaries and see that there are 5 distinct groups out of the 23 news organizations.</p>
 	<p>From the grouping, it is possible to deduce that generally, the higher the value of Principal Component 2 (PC2), the higher the average proportion of article posts on both Twitter and Facebook are classified as neutral. In addition, it is also possible to deduce that the higher the value of Principal Component 1 (PC1), the higher the average proportion of article posts on Twitter are classified as positive.</p>
@@ -363,12 +363,12 @@
 	<p><strong>Note*:</strong> Average Proportion of Positive, Negative, or Neutral are defined as the following: Average Proportion of Positive articles on Twitter for NYTimes = number of articles classified as Positive/number of articles posted on NYTime's Twitter handle.</p>
 	<br/>
 	
-	<img src="img/_Cluster/2. KMeans - sentimentOnly Subjective.png" alt="K Means Clustering with Social Metrics Data using Subjective Categories Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/2. KMeans - sentimentOnly Subjective.png" alt="K Means Clustering with Social Metrics Data using Subjective Categories Figure" align="center" class="img-responsive" />
 	<h4>Discussion</h4>
 	<p>We perform a similar classification as we have seen in the social media metrics clustering plot. Here, we can see that most of the traditional media are in the green cluster boundary except for ABC News. Thus, they are in around the mean in average proportion of positive posts and neutral posts.</p>
 	<br/>
 	
-	<img src="img/_Cluster/2. KMeans - sentimentOnly Category.png" alt="K Means Clustering with Social Metrics Data using Media Categories Figure" align="center" class="img-responsive" />
+	<img src="img/cluster/2. KMeans - sentimentOnly Category.png" alt="K Means Clustering with Social Metrics Data using Media Categories Figure" align="center" class="img-responsive" />
 	<br/>
 	
 	<h3>Sentiments Clustering Summary</h3>
