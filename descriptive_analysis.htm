@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Descriptive Analysis : Predicting Social News Reach</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="./css/navbar-fixed-top.css" rel="stylesheet">
+
+		<!-- Custom styles for the social-news project -->
+		<link href="./css/social-news.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		    <!--[if lt IE 9]>
+		      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		        <![endif]-->
+		</head>
+		<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="./index.htm">Predicting Social News Reach</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="./background.htm">Background</a></li>
+				<li><a href="./data.htm">Data</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Findings &amp; Analysis <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="./descriptive_analysis.htm">Descriptive Analysis</a></li>
+						<li><a href="./clustering.htm">Clustering Analysis</a></li>
+						<li><a href="./nlp.htm">Natural Language Processing</a></li>
+						<li><a href="./prediction.htm">Predictive Models</a></li>
+					</ul>
+				</li>
+				<li><a href="./technical_details.htm">Technical Details</a></li>
+				<li><a href="./next_steps.htm">Next Steps</a></li>
+				<li><a href="./about_us.htm">About the Authors</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="jumbotron">
+		<h1>Descriptive Analysis</h1>
+		<p><em>&ldquo;A journey of a thousand miles starts with a single boxplot.&rdquo;</em></p>
+		<p class="text-right">&mdash; Ancient Data Science Proverb</p>
+	</div>
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+
+	<h2>At a High Level</h2>
+	<p>From the data we collected, we first did some high level exploratory analysis.</p>
+	<p>First we ranked each of the 25 news organizations in terms of social media metrics. The table is produced below.</p>
+	<img src="img/descriptive_analysis/Social Metrics Ranking.png" alt="Social Media Metrics ranking" align="center" class="img-responsive" />
+	<br/>
+	<p>One of the most important sources of variation in the data is the news provider itself. Certain providers tend to dominate the rankings in every category: CNN, NBC News and ABC News never fall below the fifth position in any of the ranking dimensions. To a lesser extent, we see Huffington Post ranks among the top five in four dimensions while Fox News and Time Magazine ranks among the top five in three dimensions. In contrast, Newsweek, the Associated Press and the Agence France-Presse stay in the bottom five positions across all dimensions. More detailed analysis of the data reveals important tendencies that are not reflected by a summary-level ranking.</p>
+	<p>Next we plot boxplots of each of the social media metrics to understand their distributions. From the boxplot below, we see that the distribution of story popularity is strongly skewed. In practice, it means that several major stories comprise a significant amount of popularity, with the upper bounds rising as high as, for example, thirty times above the third quartile for Facebook likes of The Daily Beast stories. Reliance on several hit stories seems to be more important for small or new organizations, as the number of Facebook likes for the most popular BBC News Facebook postings is only three times larger than the third quartile value.</p>
+	
+	<img src="img/descriptive_analysis/Facebook Likes Boxplot.png" alt="Social Media Metrics ranking" align="center" class="img-responsive" />
+	<p>Another interesting layer of information is gleaned by comparing numbers of Facebook link clicks, likes and shares for the stories of the same news providers. An intuitive hypothesis that sharing a story reflects more reader involvement than barely liking it appears to be correct – medians of shares are constantly lower for all providers. Furthermore, the proportion of “sharers” is quite similar in all providers, but the distribution is more varied as judged by the interquartile region. Such results could be explained by a subgroup of readers who regularly read and like the content, but only seldom feel compelled to share a story. Therefore, number of likes could be considered a better measure for regular reader audience, while number of shares possibly reflects the attractiveness of certain stories.</p>
+	
+	<img src="img/descriptive_analysis/Facebook Shares Boxplot.png" alt="Social Media Metrics ranking" align="center" class="img-responsive" />
+	<p>Another interesting layer of information is gleaned by comparing numbers of Facebook link clicks, likes and shares for the stories of the same news providers. An intuitive hypothesis that sharing a story reflects more reader involvement than barely liking it appears to be correct – medians of shares are constantly lower for all providers. Furthermore, the proportion of “sharers” is quite similar in all providers, but the distribution is more varied as judged by the interquartile region. Such results could be explained by a subgroup of readers who regularly read and like the content, but only seldom feel compelled to share a story. Therefore, number of likes could be considered a better measure for regular reader audience, while number of shares possibly reflects the attractiveness of certain stories.</p>
+	
+	<p>Next we have the Twitter favorites and retweets.</p>
+	
+	<img src="img/descriptive_analysis/Twitter Favorites Boxplot.png" alt="Social Media Metrics ranking" align="center" class="img-responsive" />
+	<img src="img/descriptive_analysis/Twitter Retweets Boxplot.png" alt="Social Media Metrics ranking" align="center" class="img-responsive" />
+	<p>Statistics gathered from Twitter show different story dynamics. Here, number of clicks, favorites and retweets does not follow the same proportion for different providers. For example, consider the statistics for the New York Times, Reuters, and Slate. In number of clicks, Slate is clearly dominant, with median number of clicks approximately equal to the other providers‘ clicks combined, and has a very high third quartile value of 7,000. However, the numbers of retweets and favorites reflect the opposite tendency, with two to four times lower numbers for Slate than for Reuters and the New York Times.</p>
+	<p>There seems to be some reason that causes users to read, but not share the content from Slate – this might be caused by poor content, misleading headlines or Twitter posts, or some other factor. Furthermore, retweet and favorite statistics on Twitter show additional differences, not revealed by Facebook share-like comparison. Considering the same example, Reuters and New York Times show similar number of tweet favorites, with Reuters even trailing behind, while the number of retweets is around one and a half times larger for Reuters. This could reflect that Reuters gives a lot of attention for the tweets themselves, not only the stories behind them. The same reason could be important in different audience shares of the major organizations: while Fox News shows very high popularity on Facebook and similar Twitter clicks to CNN, the number of retweets and favorites metric is largely in favor of CNN. As the demographics in both websites are very large and varied, it is more likely that the providers invest different amounts of effort and have differing levels of competence in promoting their respective online offerings.</p>
+	<p>In a similar fashion to statistics relating to Facebook postings, the skewness in tweet popularity distribution caused by several major stories is apparent for every provider. Accurate comparison between different types of organizations (newspaper vs television) at this stage is complicated, due to the extreme differences between the popularity of providers in each group – generally, however, providers with strong roots in TV tend to have high rankings, though the newspaper-based companies (USA Today, Washington Post) are able to maintain a constant audience. This gap is much less pronounced in Twitter than in Facebook, suggesting that the followers on Twitter might be more loyal to their favorite news providers, while Facebook possibly allows for increased spread of the most popular news items.</p>
+	
+	<hr />
+
+	<h2 id="dates-and-times">Dates &amp; Times <small>When do publishers post?</small></h2>
+
+	<p>Properly timing posts is an important part of audience engagement. Some publishers hire <a href="http://www.socialflow.com/">outside firms</a> to optimize their messaging, and Bitly themselves have <a href="http://blog.bitly.com/post/22663850994/time-is-on-your-side">published research</a> into how best to time links. This issue turns out to be quite relevant for our <a href="prediction.htm">predictive analysis</a> as well.</p>
+
+	<p class="bg-info">This analysis derives from unstructured analysis currently stored on Github. Interested readers may wish to <a href="http://nbviewer.ipython.org/github/micahlanier/social-news/blob/master/src/exploration/timeExploration.ipynb">check it out</a>.</p>
+
+	<p>Anyone familiar with working schedules and news cycles can surmise that social media post volume declines over the weekend. This pattern holds for most publishers, though some (the <em>New York Times</em> and the <em>Daily Mail</em>) show little or no dropoff.</p>
+
+	<img src="img/descriptive_analysis/post_volume_by_day.png" alt="Social media post volume by day" class="img-responsive center-block" />
+
+	<p>A similarly intuitive pattern holds for posting time throughout the day. Most publishers show a rather rapid &ldquo;ramp-up&rdquo; at the start of the workday, and post less as the day (and night) drags on.</p>
+
+	<img src="img/descriptive_analysis/post_volume_by_time_agg.png" alt="Post volume by time, aggregated" class="img-responsive center-block" />	
+
+	<p>But <em>particular</em> media organizations often post their content at very different times of day. As observed, evenings typically show a decline in post volume&mdash;but this may be either gradual (<em>Time</em>) or precipitous (<em>Newsweek</em>). Some publishers follow clearly international schedules that appear lackadaiscal toward cultivating an American audience (<em>AFP</em>, <em>The Guardian</em>). There are very few consistent patterns for nighttime posting.</p>
+
+	<img src="img/descriptive_analysis/post_volume_by_time.png" alt="Post volume by time for all publishers" class="img-responsive center-block" />
+
+	<p style="margin-top: 2em">Finally, we performed little investigation of minute-by-minute posting patterns, as the particular <em>minute</em> of a post yielded little predictive power in our regression analysis. But we did note an interesting pattern among Facebook posts. News organizations have a clear habit of posting at the top of each hour and half-hour:</p>
+
+	<img src="img/descriptive_analysis/fb_post_volume_by_time_agg.png" alt="Facebook post volume by time, aggregated" class="img-responsive center-block" />
+
+	<p>The pattern was stronger among organizations for which we could <em>not</em> ascertain SocialFlow usage (i.e., those organizations that do not direct their links through <a href="http://www.trib.al/">trib.al</a>), but was still present for both groups.</p>
+	
+	<!-- End content editing. -->
+</div>
+
+<!-- Bootstrap core JavaScript. Placed at the end of the document so the pages load faster. -->
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script src="./bootstrap-3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

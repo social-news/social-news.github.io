@@ -1,0 +1,43 @@
+/* Main index title. */
+.social-news-title {
+	background: url(../img/home_bg.png);
+	background-position: top right;
+}
+.social-news-title h1 {
+	color: #d9d9d9;
+}
+.social-news-title h1 small {
+	color: inherit;
+}
+@media (min-width: 768px) {
+	.social-news-title {
+		margin-top: 60px;
+	}
+}
+@media (min-width: 992px) {
+	.social-news-title {
+		background-position: top left;
+		margin-top: 0;
+	}
+	.social-news-title h1 {
+		margin-left: 360px;
+		font-size: 55px;
+	}
+}
+@media (min-width: 1200px) {
+	.social-news-title {
+		background-position: top left;
+	}
+	.social-news-title h1 {
+		font-size: 63px;
+	}
+}
+
+/* Center tweets. */
+iframe.twitter-tweet { margin-left: auto !important; margin-right: auto !important; }
+
+/* Ensure space at bottom. */
+body { margin-bottom: 24px; }
+
+/* Padding for blue boxes. */
+p.bg-info { padding: 15px; margin-left: 30px; margin-right: 30px; }

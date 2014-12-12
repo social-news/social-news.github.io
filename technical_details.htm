@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Technical Details : Predicting Social News Reach</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="./css/navbar-fixed-top.css" rel="stylesheet">
+
+		<!-- Custom styles for the social-news project -->
+		<link href="./css/social-news.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		    <!--[if lt IE 9]>
+		      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		        <![endif]-->
+		</head>
+		<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="./index.htm">Predicting Social News Reach</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="./background.htm">Background</a></li>
+				<li><a href="./data.htm">Data</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Findings &amp; Analysis <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="./descriptive_analysis.htm">Descriptive Analysis</a></li>
+						<li><a href="./clustering.htm">Clustering Analysis</a></li>
+						<li><a href="./nlp.htm">Natural Language Processing</a></li>
+						<li><a href="./prediction.htm">Predictive Models</a></li>
+					</ul>
+				</li>
+				<li><a href="./technical_details.htm">Technical Details</a></li>
+				<li><a href="./next_steps.htm">Next Steps</a></li>
+				<li><a href="./about_us.htm">About the Authors</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="jumbotron">
+		<h1>Technical Details</h1>
+		<p>Our work stands atop the shoulders of giants. These are the tools that we found indispensable. You will too.</p>
+	</div>
+</div>
+<div class="container">
+	<!-- Edit main content here. -->
+
+	<h2>Source Code</h2>
+
+	<p>Source code is available on Github. Please <a href="http://www.github.com/micahlanier/social-news/">fork and extend</a> as you please. We would appreciate <a href="about_us.htm">hearing about</a> anything you change!</p>
+
+	<h2>Data Engineering</h2>
+		
+	<p><a href="https://dev.twitter.com">Twitter</a>, <a href="https://developers.facebook.com">Facebook</a>, and <a href="http://dev.bitly.com">Bitly</a> all provide helpful APIs that we used for retrieving their content and data. We used <a href="https://twython.readthedocs.org/en/latest/">Twython</a> to access the Twitter API, and <a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> for finding older tweets. Python&rsquo;s <a href="https://docs.python.org/2/library/json.html">json</a> module and the excellent <a href="http://pandas.pydata.org">pandas</a> library were indispensible to our engineering effort.</p>
+
+	<h2>Analysis</h2>
+
+	<p>Python veterans will be unsurprised that much of our analysis employed <a href="http://pandas.pydata.org">pandas</a>, <a href="http://matplotlib.org">matplotlib</a>, and <a href="http://stanford.edu/~mwaskom/software/seaborn/">Seaborn</a>.</p>
+
+	<h2>Clustering &amp; Prediction</h2>
+
+	<p>We performed principal component analysis and generated our predictive models with <a href="http://scikit-learn.org/">scikit-learn</a>. For prediction in particular, we relied on <a href="http://scikit-learn.org/stable/modules/linear_model.html#setting-the-regularization-parameter-generalized-cross-validation">RidgeCV</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html">RandomForestRegressor</a> for our regression problems. We explored <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html">SVR</a> as well but opted not to employ it in our final work.</p>
+
+	<h2>Natural Language Processing</h2>
+
+	<p><a href="http://www.nltk.org/">NLTK</a> (the Natural Language Toolkit) was our workhorse for language processing. Our sentiment analysis efforts relied on the <a href="http://wordnet.princeton.edu/">WordNet</a> lexical database and <a href="http://sentiwordnet.isti.cnr.it/">SentiWordNet</a> sentiment classifications (both included with NLTK&rsquo;s data). Our topic modeling results owe a debt of gratitude to <a href="https://radimrehurek.com/gensim/">gensim</a>.</p>
+
+	<h2>Collaboration</h2>
+
+	<p>This website is generously hosted on <a href="http://www.github.com/">Github</a>. We enthusiastically recommend this setup to any future CS 109 students who wander this way and read all the way down this page.</p>
+
+	<!-- End content editing. -->
+</div>
+
+<!-- Bootstrap core JavaScript. Placed at the end of the document so the pages load faster. -->
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script src="./bootstrap-3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

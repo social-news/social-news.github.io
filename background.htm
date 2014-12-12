@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Technical Details : Predicting Social News Reach</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="./css/navbar-fixed-top.css" rel="stylesheet">
+
+		<!-- Custom styles for the social-news project -->
+		<link href="./css/social-news.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		    <!--[if lt IE 9]>
+		      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		        <![endif]-->
+		</head>
+		<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="./index.htm">Predicting Social News Reach</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="./background.htm">Background</a></li>
+				<li><a href="./data.htm">Data</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Findings &amp; Analysis <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="./descriptive_analysis.htm">Descriptive Analysis</a></li>
+						<li><a href="./clustering.htm">Clustering Analysis</a></li>
+						<li><a href="./nlp.htm">Natural Language Processing</a></li>
+						<li><a href="./prediction.htm">Predictive Models</a></li>
+					</ul>
+				</li>
+				<li><a href="./technical_details.htm">Technical Details</a></li>
+				<li><a href="./next_steps.htm">Next Steps</a></li>
+				<li><a href="./about_us.htm">About the Authors</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="jumbotron">
+		<h1>Background</h1>
+		<p>&ldquo;Each desk labors over section fronts, but pays little attention to promoting its work on social media.&rdquo;</p>
+		<p class="text-right">&mdash; <em>New York Times</em> Innovation Report, 2014</p>
+	</div>
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h2>Inspiration</h2>
+
+	<p>During <a href="https://video.seas.harvard.edu/media/14_10_31+Chris+Wiggins---+IACS+Seminar/1_64y93e32">a recent appearance as part of the IACS seminar series</a>, <em>New York Times</em> Chief Data Scientist Chris Wiggins noted that virtually all news organizations have become startups: they are all firms &ldquo;in search of a scalable business model.&rdquo; In response to challenges of the digital age, many &ldquo;traditional&rdquo; news organizations have expanded efforts to promote their content on social media websites like Facebook and Twitter as a new medium to garner traffic and users. We are interested in how these efforts differ among news organizations and how we might predict their success.</p>
+	
+	<h2>Our Questions</h2>
+
+	<p>Stated formally, we investigate two broad questions about news organization activities on social media. The first is descriptive: how do different organizations use each social network, and how do their social media presences differ? The second is predictive: what measurable features of social media activity can predict popularity of news content? These questions fundamentally guide our later analysis and form the basis of the various angles of analysis that we pursue.</p>
+	
+	<p>We have identified 25 news organizations across several categories (newspapers, cable channels, wire services, etc.) to analyze. They are:</p>
+
+	<p style="margin: auto 5em;"><small>The Boston Globe, The Los Angeles Times, The New York Times, The Wall Street Journal, The Washington Post, USA Today, BBC, The Daily Mail, The Guardian, CNN, Fox News, MSNBC, ABC News, CBS News, NBC News, The Daily Beast, The Huffington Post, Slate, Agence France-Presse, The Associated Press, Reuters, Newsweek, Time, Yahoo News, and NPR News.</small></p>
+
+	<h2>Related Work</h2>
+
+	<p>Several of last year&#39;s <a href="http://rabeeaa.wordpress.com/cs109-final-project/">CS 109 projects</a> utilized social media data for analytical purposes, and researchers have begun to mine social media data to quite <a href="http://newsinfo.iu.edu/news-archive/16074.html">startling ends</a>. Rather than mine aggregate, general data, we have opted to focus on a narrower selection of accounts across media (both Facebook and Twitter) to divine details about the particular social strategies that they exhibit.</p>
+	
+	<p>While we believe that our analysis is unique in its breadth, our work is certainly inspired by past social media analysis of news content. Brian Abelson&rsquo;s <a href="http://brianabelson.com/open-news/2013/11/14/Pageviews-above-replacement.html">Pageviews Above Replacement</a> paints a fascinating picture of pageviews that accrue to different types of content that <a href="http://www.twitter.com/nytimes/">@nytimes</a> shares on Twitter, and lends insight into the potential strategic changes that might yield more traffic. And the Times&#39; <a href="http://www.niemanlab.org/2014/05/the-leaked-new-york-times-innovation-report-is-one-of-the-key-documents-of-this-media-age/">leaked 2014 Innovation report</a> discussed the firm&#39;s social media strategy extensively. Finally, Bitly <a href="http://blog.bitly.com/post/22663850994/time-is-on-your-side">analyzed social media traffic</a> to its own links in 2012; their analysis is directly relevant to our observations about how posting time influences social response.</p>
+
+	<h2>Data Overview</h2>
+
+	<p>At a high level, our analysis utilizes data from four primary sources: Twitter, Facebook, Bitly, and a custom-built dataset of the final destinations of each link that our news organizations post. Methods of generating each (done through a combination of APIs and web scraping) are discussed in the next section.</p>
+
+	<p>For context these figures convey the volume of records that we retreived from each data source:</p>
+	
+	<table class="table" style="width: 50%; margin: auto;">
+	<thead><th>Data Source</th><th class="text-right">Records</th></thead>
+	<tbody>
+		<tr><td>Twitter (Tweets)</td><td class="text-right">119,010</td></tr>
+		<tr><td>Facebook (Posts)</td><td class="text-right">53,493</td></tr>
+		<tr><td>Articles Matched (Between Facebook &amp; Twitter)</td><td class="text-right">23,633</td></tr>
+		<tr><td>Bitly (Click Statistics)</td><td class="text-right">137,675 links for 23 organizations</td></tr>
+		<tr><td>URL Paths</td><td class="text-right">196,372&#42;</td></tr>
+	</tbody>
+	</table>
+
+	<p style="width: 50%; margin: auto;"><small>&#42;Many social media posts&mdash;especially on Facebook&mdash;feature more than one link. This is why we found more links than we have posts.</small></p>
+
+	<!-- End content editing. -->
+</div>
+
+<!-- Bootstrap core JavaScript. Placed at the end of the document so the pages load faster. -->
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script src="./bootstrap-3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

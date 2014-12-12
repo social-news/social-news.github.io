@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Next Steps : Predicting Social News Reach</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="./css/navbar-fixed-top.css" rel="stylesheet">
+
+		<!-- Custom styles for the social-news project -->
+		<link href="./css/social-news.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		    <!--[if lt IE 9]>
+		      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		        <![endif]-->
+		</head>
+		<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="./index.htm">Predicting Social News Reach</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="./background.htm">Background</a></li>
+				<li><a href="./data.htm">Data</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Findings &amp; Analysis <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="./descriptive_analysis.htm">Descriptive Analysis</a></li>
+						<li><a href="./clustering.htm">Clustering Analysis</a></li>
+						<li><a href="./nlp.htm">Natural Language Processing</a></li>
+						<li><a href="./prediction.htm">Predictive Models</a></li>
+					</ul>
+				</li>
+				<li><a href="./technical_details.htm">Technical Details</a></li>
+				<li><a href="./next_steps.htm">Next Steps</a></li>
+				<li><a href="./about_us.htm">About the Authors</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="jumbotron">
+		<h1>Next Steps</h1>
+		<p>CS 109 ended on December 10, 2014. What&rsquo;s on the docket for December 11?</p>
+	</div>
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<p>Given more time, we would have enjoyed expanding our analysis in several dimensions. This section contains some notes on further topics and questions that we are interested in analyzing.</p>
+	
+	<h2>More Data</h2>
+
+	<p>Due primarily to the limitations of the Twitter API, our analysis only applies to recent months of social media activity. Our Twitter data extends back to October 1; Facebook data to September 1. Data for several months in the future would provide several benefits:</p>
+	<ol>
+		<li>More observations tend to make for better predictive models. This is not universally true (especially for models that are fundamentally flawed), but we would hope to find more &ldquo;signal&rdquo; in a larger dataset.</li>
+		<li>We might observe the influence of future news events on social media activity. Our dataset missed many news events in the past, including early coverage of the 2014 US midterm elections (though we obtained lots of recent coverage about it). Our window includes very little of the recent Michael Brown and Eric Garner grand jury decision coverage, reactions to Rolling Stone&rsquo;s UVA sexual assault coverage, or other very recent stories. Looking to the future, news coverage of a newly-Republican US Senate and the ramp-up of the 2016 Presidential campaign might prove useful for our analysis.</li>
+		<li>In the long run, our analysis might help observers understand the changing influence of traditional news organizations on novel social media.</li>
+	</ol>
+
+	<h2>Persistent Data Storage</h2>
+
+	<p>Given time constraints and the nature of our data, we had little trouble storing our data in a series of JSON files and joining them together for later analysis. But this process simply would not have scaled. Storing hundreds of thousands of records in this format, especially where there may be significant record overlap (as in the case of progressively-updated Twitter data) raises concerns about reliability, stability, and processing speed.</p>
+
+	<p>A NoSQL, document storage engine is an ideal fit for at least storing our retrieved data. <a href="http://www.mongodb.org">MongoDB</a> appears to fit the bill perfectly, featuring native compatibility with our existing data storage formats. We eschewed using MongoDB due to the learning curve: our team has some experience using relational databases but no experience with MongoDB. The &ldquo;conceptual shift&rdquo; to using a NoSQL database made MongoDB appear infeasible given the time available and potential benefit.</p>
+
+	<h2>Exploring Additional Social Media Metrics</h2>
+
+	<p>Much of our social media metrics and analysis revolve around likes, shares, retweets, favorites, and bitly click counts. We did not look closely in depth into how post lengths impact the social media metrics. Moreover, we also did not explore how including different media files such as images and videos impacted the social metrics. Further extensions would include exploring these effects to understand how readers consume digital media from social media platforms.</p>
+
+	<h2>Cluster Analysis of Individual Articles</h2>
+
+	<p>We explored the social media relationship between news organizations. An extension to the question would be to look at if there are identifiable clusters for articles. Perhaps there are clusters of strong performing articles that tend to go viral and articles that generate lukewarm interest. This analysis can help news organizations identify what proportions of their articles fall in which category and adjust their content strategy accordingly.</p>
+
+	<h2>Enhanced Predictions</h2>
+
+	<p>Our predictive models used a fairly straightforward selection of features, and only employed two common regression algorithms. Our modeling process, feature selection process, and breadth of outcomes all offer vectors for improvement in the future.</p>
+
+	<h2>Leveraging Topic Modeling</h2>
+
+	<p>While our topic analysis proved enlightening, it proved far more challenging than expected to implement. That limited our ability to employ topic modeling in predictive analysis or analyze the relationship between post subject matter and sentiment. In theory, the subject matter of a social media post (and its linked article) ought to be a critical component of its popularity. This is even more so for more specialized news organizations (e.g., the Wall Street Journal and its business coverage) or news organizations that are thought to cultivate a more partisan audience (e.g., Fox News and MSNBC).</p>
+
+	<h2>Topic Modeling &amp; Clustering</h2>
+
+	<p>An extension to consolidate topic modeling with the social media metrics we gathered from Facebook and Twitter is to perform clustering with each article as an observation and color each observation according to the identified topic. This would make for an interesting visualization with our identified top 10 articles.</p>
+
+	<!-- End content editing. -->
+</div>
+
+<!-- Bootstrap core JavaScript. Placed at the end of the document so the pages load faster. -->
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script src="./bootstrap-3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

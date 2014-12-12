@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Natural Language Processing : Predicting Social News Reach</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="./css/navbar-fixed-top.css" rel="stylesheet">
+
+		<!-- Custom styles for the social-news project -->
+		<link href="./css/social-news.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		    <!--[if lt IE 9]>
+		      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		        <![endif]-->
+		</head>
+		<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="./index.htm">Predicting Social News Reach</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="./background.htm">Background</a></li>
+				<li><a href="./data.htm">Data</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Findings &amp; Analysis <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="./descriptive_analysis.htm">Descriptive Analysis</a></li>
+						<li><a href="./clustering.htm">Clustering Analysis</a></li>
+						<li><a href="./nlp.htm">Natural Language Processing</a></li>
+						<li><a href="./prediction.htm">Predictive Models</a></li>
+					</ul>
+				</li>
+				<li><a href="./technical_details.htm">Technical Details</a></li>
+				<li><a href="./next_steps.htm">Next Steps</a></li>
+				<li><a href="./about_us.htm">About the Authors</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="jumbotron">
+		<h1>Natural Language Processing</h1>
+		<p>The textual nature of social media provides a rich corpus for analysis. These represent our efforts to extract meaning from the words we collected.</p>
+	</div>
+
+	<h2 id="sentiment-analysis">Sentiment Analysis <small>What makes 140 characters <em>positive</em> or <em>negative</em>?</small></h2>
+	<p>We performed <a href="http://en.wikipedia.org/wiki/Sentiment_analysis">sentiment analysis</a> on our collection of tweets and posts in an attempt to extract meaningful measurements of &ldquo;positivity&rdquo; and &ldquo;negativity&rdquo; (somewhat subjectively defined). To accomplish this, we drew upon <a href="http://www.nltk.org/">NLTK</a>&rsquo;s sophisticated textual toolset and the <a href="http://wordnet.princeton.edu/">WordNet</a> and <a href="http://sentiwordnet.isti.cnr.it/">SentiWordNet</a> databases for word sense disambiguation and sentiment classification (respectively).</p>
+
+	<p>Note that SentiWordNet uses a <a href="http://nmis.isti.cnr.it/sebastiani/Publications/LREC06.pdf">semi-supervised classification mechanism</a> that does not always produce intuitive results. Our classifications also rely on aggregations of word-wise classifications, rather than producing a &ldquo;holistic&rdquo; sentiment classification like that which a human would produce. The implications of this process (and some odd results that it produces) are discussed below.</p>
+
+	<p>To obtain useful data, we implemented a straightforward process of traversing every tweet and Facebook post we have collected, used NLTK to perform sentiment scoring and classification, and stored the results for later use. Interested readers ought to refer to our source code.</p>
+
+	<p class="bg-info">Our sentiment clasification code is (of course) <a href="https://github.com/micahlanier/social-news/blob/master/src/sentiment/sentiment.py">available on GitHub</a>. For those interested, the following analysis is based on <a href="http://nbviewer.ipython.org/github/micahlanier/social-news/blob/master/src/sentiment/sentimentExploration.ipynb">exploratory analysis</a> that is stored in the same repository.</p>
+
+	<h3>Scoring &amp; Classification Results</h3>
+
+	<p>A quick analysis of classified tweets reveals some intuitive results. The following tweet was retweeted by <em>Slate</em>, and represents the most "negative" tweet that we observed:</p>
+
+	<blockquote class="twitter-tweet" data-cards="hidden" lang="en"><p>.<a href="https://twitter.com/KevinNR">@KevinNR</a>&#39;s sex abuse allegations against <a href="https://twitter.com/lenadunham">@lenadunham</a>? Insulting, unscientific, dangerous, and dead wrong. <a href="http://t.co/tIvXtMATKZ">http://t.co/tIvXtMATKZ</a> <a href="https://twitter.com/Slate">@Slate</a></p>&mdash; Mark Joseph Stern (@mjs_DC) <a href="https://twitter.com/mjs_DC/status/529688113812373504">November 4, 2014</a></blockquote>
+
+	<p>This tweet from <em>CBS News</em> was the most positive:</p>
+
+	<blockquote class="twitter-tweet" lang="en"><p>Major supermarket chain to start ranking fruits and vegetables - which are &quot;good,&quot; &quot;better,&quot; &quot;best&quot;? <a href="http://t.co/7qRbiOE9bM">http://t.co/7qRbiOE9bM</a></p>&mdash; CBS News Health (@CBSHealth) <a href="https://twitter.com/CBSHealth/status/522420844845604864">October 15, 2014</a></blockquote>
+
+	<p>The reasons for each classification appear obvious. The first is loaded with words that would intuitively be considered quite negative (<em>insulting</em>, <em>dangerous</em>), while the second explicitly lists positive words. Still, our classification method does produce some "head scratching" results. Some of the most negative tweets we retrieved were variations on the following quote from President Obama:</p>
+
+	<blockquote class="twitter-tweet" lang="en"><p>Obama: &quot;Scripture tells us that we shall not oppress a stranger, for we know the heart of a stranger. We were strangers once, too.&quot;</p>&mdash; Huffington Post (@HuffingtonPost) <a href="https://twitter.com/HuffingtonPost/status/535602978703818752">November 21, 2014</a></blockquote>
+	<script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+	<p>The intention of the quote was clearly positive and meant to encourage empathy, but it was formed from an aggregation words that SentiWordNet classifies as negative. Thus, our approach is not without drawbacks, but we hope to derive at least some &ldquo;signal&rdquo; from our sentiment classifications.</p>
+
+	<p>Aggregations of sentiment behavior demonstrate differences between news organizations. The following charts illustrate organizations' proportions of negative and positive posts on each social network, ordered by the difference between the two categories. Organizations with low proportions of either category may be considered more &ldquo;neutral&rdquo; (this does not imply journalistic neutrality).</p>
+
+	<img src="img/sentiment/twitter_org_sentiment.png" class="img-responsive center-block" />
+
+	<img src="img/sentiment/facebook_org_sentiment.png" class="img-responsive center-block" />
+
+	<p>The data above show several interesting patterns:</p>
+	
+	<ul>
+		<li>Several publishers show net negative posts on Twitter: more of their posts are classified as negative than positive. No organization falls into this category on Facebook.</li>
+		<li>Aggregate positivity on Facebook is much higher. This is likely attributable to the lack of a 140-character message limit: because not all words have extreme positive/negative sentiment values, or even <em>any</em> sentiment scores at all, many tweets are classified as neutral.</li>
+		<li>A cursory examination suggests that some organizations remain in similar sentiment &quot;tiers&quot; across networks (e.g., <em>Slate</em>, the <em>Wall Street Journal</em>). Others do not: <em>Reuters</em> (for example) is net-negative on Twitter but in the upper third of positivty on Facebook. These differences may lend insight into the organizations where presences on each network are controlled by different teams. This is not uncommon: according to its leaked <a href="http://www.niemanlab.org/2014/05/the-leaked-new-york-times-innovation-report-is-one-of-the-key-documents-of-this-media-age/">2014 Innovation Report</a>, at the time of publication the firm&#39;s newsroom handled Twitter communications, while a business-side unit managed the company&#39;s Facebook presence.</li>
+	</ul>
+
+	<p>This analysis demonstrates further utility in our <a href="clustering.htm">clustering</a> and <a href="prediction.htm">predictive analyses</a>.</p>
+
+	<hr />
+	
+	<h2>Topic Modeling <small>What are publishers talking about?</small></h2>
+	<p>Topic modeling is an automatic way to generate a topic for an article.
+	 The computer selects a set of representative words from all corpus (large and structured set of texts) to construct a dictionary. 
+	 Then it selects a few words in this dictionary to generate topics. Finally, it classifies each topic to different topics.</p>
+	
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<p>We used two additional python libraries, <strong>nltk</strong> and <strong>gensim</strong> to auto generate the topic for each post from Twitter and Facebook. In general, there are two steps of topic generation. The first step is to lemmatize each post and build a dictionary. The second step is to build the topic model and generate topic for each post.</p>
+	<!-- End content editing. -->
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h4>Lemmatizing posts <small>Make the texts recognizable for machine.</small></h4>
+	<p>In order to input the texts to train the topic model, we need to clean the text and transform it to the format that is understandable for a computer.</p>
+	<ol type="1">
+     <li>Eliminate stop words: stop words are generally only grammatical in nature but are not very important.
+	  We remove them from posts since they are not representative.</li>
+	 <dl>Examples of some stop words: 'a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'as',
+           'at', 'be', 'because', 'been', 'before'...etc.</dl>
+	 <li>Eliminate patterned words: some special formatted words are used in Twitter or Facebook posts, such as the words after #, @ RT...etc.
+	  Mostly those words are not real words that we can find in the dictionary so computers cannot process them.</li>
+     <li>Lemmatization: map the different forms of a words back to its original form.</li>
+	 <dl>For example,  "gone", "went", "goes" are mapped to "go".</dl>
+     <li>Morphology: Identify the morphological features of each words in a text. We only preserve nouns because they are more representative in topics.</li>
+	 <li>Dictionary: Build the dictionary of these lemmatized words. We would have the statistical summary of the words in this dictionary.
+	  We can further eliminate words based on the words' frequency. We tuned this parameter but it did not have a significant effect because Twitter and Facebook posts are generally very short. A word filter based on how many posts a word appears is not sensible here. The idea here is to filter out words that are used in every single posts (words that are not suitable for topics) or used in a single post (words that are not generalizable to a sub-segment of posts). </li>
+    </ol>  
+	<!-- End content editing. -->
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h4>Building LDA Model <small>Train the topic model and classify the posts.</small></h4>
+	<p>The LDA Model is essentially a classifier, which classifies the posts to different classes. Then, it gives about ten words as the name of each class. These ten words would be the topics of the posts in this class.</p>
+	<ol type="1">
+     <li>Build the LDA model based on the dictionary in the previous step. Some parameters require tuning in this model.
+	  One of the most important parameter is the number of topics. We tuned this parameter to 500 based on the final result since the posts with the same topic have similar content.</li>
+	 <li>Generate topics from the LDA model. The number of topics would be what we determined.</li>
+	 <li>Put the lemmatized posts into our model. The LDA model would classify each post to one of the topics.</li>
+    </ol>  
+	<!-- End content editing. -->
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h4>Top topics in Twitter and Facebook</h4>
+	<p>The topics generated by LDA model are simply words with their ratio appeared in the posts classified to this topic. 
+	In order to make the result more presentable, we manually changed the topics to more human readable ones.</p>
+	<!-- End content editing. -->
+</div>
+
+<table border="1"  width="40%" align="center">
+  <tr><!-- Row 1 -->
+     <td>Rank</td><!-- Col 1 -->
+     <td>Twitter Topics</td><!-- Col 2 -->
+	 <td>Facebook Topics</td>
+  </tr>
+  <tr><!-- Row 2 -->
+     <td>1</td><!-- Col 1 -->
+     <td>New York</td><!-- Col 2 -->
+	 <td>New York City</td>
+  </tr>
+  <tr><!-- Row 3 -->
+     <td>2</td><!-- Col 1 -->
+     <td>President Obama</td><!-- Col 2 -->
+	 <td>Ebola in US</td>
+  </tr>
+  <tr><!-- Row 4 -->
+     <td>3</td><!-- Col 1 -->
+     <td>ISIS</td><!-- Col 2 -->
+	 <td>President Obama's Immigration Policy</td>
+  </tr>
+  <tr><!-- Row 5 -->
+     <td>4</td><!-- Col 1 -->
+     <td>Woman Issues</td><!-- Col 2 -->
+	 <td>Hong Kong protest</td>
+  </tr>
+  <tr><!-- Row 6 -->
+     <td>5</td><!-- Col 1 -->
+     <td>Highlights of the Year</td><!-- Col 2 -->
+	 <td>Life Issues</td>
+  </tr>
+  <tr><!-- Row 7 -->
+     <td>6</td><!-- Col 1 -->
+     <td>Listicles</td><!-- Col 2 -->
+	 <td>Things with Photography</td>
+  </tr>
+  <tr><!-- Row 8 -->
+     <td>7</td><!-- Col 1 -->
+     <td>White House</td><!-- Col 2 -->
+	 <td>Family Related Topics</td>
+  </tr>
+  <tr><!-- Row 9 -->
+     <td>8</td><!-- Col 1 -->
+     <td>Ebola</td><!-- Col 2 -->
+	 <td>Midterm Senate Elections</td>
+  </tr>
+  <tr><!-- Row 10 -->
+     <td>9</td><!-- Col 1 -->
+     <td>Ebola in Texas</td><!-- Col 2 -->
+	 <td>White House</td>
+  </tr>
+  <tr><!-- Row 11 -->
+     <td>10</td><!-- Col 1 -->
+     <td>Ebola in Texas</td><!-- Col 2 -->
+	 <td>ISIS</td>
+  </tr>
+</table>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h4>The Rank of Top 10 Topics of Twitter in each group of News Organizations</h4>
+	<h5>News Groups:</h5>
+	<p>Figure below is generated from analysis in the <a href="clustering.htm">Clustering section</a>.
+	<br/>
+	<img src="img/socialMetrics.png" align="center" class="img-responsive" />
+	<!-- End content editing. -->
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h4>The Rank of Top 10 Topics of Facebook in each group of News Organizations</h4>
+	<!-- End content editing. -->
+</div>
+
+<table border="1"  width="50%" align="center">
+  <tr><!-- Row 1 -->
+     <td>Rank in all facebook posts</td><!-- Col 1 -->
+     <td>Topics</td><!-- Col 2 -->
+     <td>Green</td><!-- Col 3 -->
+     <td>Blue</td><!-- Col 4 -->
+     <td>Teal</td><!-- Col 5 -->
+     <td>Red</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 2 -->
+     <td>1</td><!-- Col 1 -->
+     <td>New York City</td><!-- Col 2 -->
+     <td>11</td><!-- Col 3 -->
+     <td>1</td><!-- Col 4 -->
+     <td>3</td><!-- Col 5 -->
+     <td>1</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 3 -->
+     <td>2</td><!-- Col 1 -->
+     <td>Ebola in US</td><!-- Col 2 -->
+     <td>3</td><!-- Col 3 -->
+     <td>2</td><!-- Col 4 -->
+     <td>8</td><!-- Col 5 -->
+     <td>6</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 4 -->
+     <td>3</td><!-- Col 1 -->
+     <td>President Obama's Immigration Policy</td><!-- Col 2 -->
+     <td>12</td><!-- Col 3 -->
+     <td>4</td><!-- Col 4 -->
+     <td>5</td><!-- Col 5 -->
+     <td>4</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 5 -->
+     <td>4</td><!-- Col 1 -->
+     <td>Hong Kong Protest</td><!-- Col 2 -->
+     <td>301</td><!-- Col 3 -->
+     <td>5</td><!-- Col 4 -->
+     <td>42</td><!-- Col 5 -->
+     <td>3</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 6 -->
+     <td>5</td><!-- Col 1 -->
+     <td>Life Issues</td><!-- Col 2 -->
+     <td>17</td><!-- Col 3 -->
+     <td>7</td><!-- Col 4 -->
+     <td>6</td><!-- Col 5 -->
+     <td>7</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 7 -->
+     <td>6</td><!-- Col 1 -->
+     <td>Things with Photography</td><!-- Col 2 -->
+     <td>39</td><!-- Col 3 -->
+     <td>12</td><!-- Col 4 -->
+     <td>18</td><!-- Col 5 -->
+     <td>2</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 8 -->
+     <td>7</td><!-- Col 1 -->
+     <td>Family Related Topics</td><!-- Col 2 -->
+     <td>10</td><!-- Col 3 -->
+     <td>8</td><!-- Col 4 -->
+     <td>7</td><!-- Col 5 -->
+     <td>13</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 9 -->
+     <td>8</td><!-- Col 1 -->
+     <td>Midterm Senate Elections</td><!-- Col 2 -->
+     <td>18</td><!-- Col 3 -->
+     <td>21</td><!-- Col 4 -->
+     <td>1</td><!-- Col 5 -->
+     <td>8</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 10 -->
+     <td>9</td><!-- Col 1 -->
+     <td>White House</td><!-- Col 2 -->
+     <td>7</td><!-- Col 3 -->
+     <td>11</td><!-- Col 4 -->
+     <td>4</td><!-- Col 5 -->
+     <td>16</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 11 -->
+     <td>10</td><!-- Col 1 -->
+     <td>ISIS</td><!-- Col 2 -->
+     <td>132</td><!-- Col 3 -->
+     <td>10</td><!-- Col 4 -->
+     <td>2</td><!-- Col 5 -->
+     <td>66</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 12 -->
+     <td>11</td><!-- Col 1 -->
+     <td>Parents with Teenage Girls</td><!-- Col 2 -->
+     <td>25</td><!-- Col 3 -->
+     <td>20</td><!-- Col 4 -->
+     <td>12</td><!-- Col 5 -->
+     <td>14</td><!-- Col 6 -->
+  </tr>
+</table>
+
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h5><b>The different clusters/groups of news organizations have very different preference of topics:</b></h5>
+	<p>The above table shows the top 10 topic in Facebook posts posted by the 25 news organizations. We believe that the topic modeling performed reasonably well in that we see big topics that were heavily posted on during the September - November time frame. Some of the topics that readers might recognize are Ebola, President Obama's Immigration Policy, Hong Kong Protest, Midterm Senate Elections, White House, and ISIS. We are reasonably happy with the topic modeling results and find them to be within our expectation of what news organizations were reporting on.</p>
+	<p>Using the results from the prior clustering analysis with social media metrics, we can also derive where the top 10 topics ranked for each of the groups. For example, from the above table, for the <strong>Green</strong> group - New York City is ranked as the 11th most posted topic while for the entire 25 news organizations, it is ranked as the most posted topic.</p>
+	<p>There are several interesting observations we can draw. First, we find the <strong>Green</strong> group's content on Facebook to be very different from the rest of the three groups. The main differences are on the topics Hong Kong Protests (ranked 301) and ISIS (ranked 132). While these topics are ranked in the top 10 for the entire 25 news organizations, these topics are not heavily reported by Huffington Post, USA Today, and Fox News. This is within our expectation of sensational news organizations compared to more serious journalistic organizations such as New York Times. In addition, the <strong>Teal</strong> group does not post much on Hong Kong Protests and the <strong>Red</strong> group does not put an emphasis on ISIS. While, for the <strong>Blue</strong> group, the ranking within the group is very similar to the overall 25 news organizations. This makes sense, since the <strong>Blue</strong> group has the majority of news organizations. We should note that <strong>Blue</strong> group is also comprised of the main traditional news outlets that would report on the more serious topics.</p>
+	<!-- End content editing. -->
+</div>
+
+<table border="1"  width="50%" align="center">
+  <tr><!-- Row 1 -->
+     <td>Rank in all Twitter posts</td><!-- Col 1 -->
+     <td>Topics</td><!-- Col 2 -->
+     <td>Green</td><!-- Col 3 -->
+     <td>Blue</td><!-- Col 4 -->
+     <td>Teal</td><!-- Col 5 -->
+     <td>Red</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 2 -->
+     <td>1</td><!-- Col 1 -->
+     <td>New York</td><!-- Col 2 -->
+     <td>11</td><!-- Col 3 -->
+     <td>1</td><!-- Col 4 -->
+     <td>2</td><!-- Col 5 -->
+     <td>3</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 3 -->
+     <td>2</td><!-- Col 1 -->
+     <td>President Obama</td><!-- Col 2 -->
+     <td>50</td><!-- Col 3 -->
+     <td>3</td><!-- Col 4 -->
+     <td>4</td><!-- Col 5 -->
+     <td>1</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 4 -->
+     <td>3</td><!-- Col 1 -->
+     <td>ISIS</td><!-- Col 2 -->
+     <td>14</td><!-- Col 3 -->
+     <td>2</td><!-- Col 4 -->
+     <td>95</td><!-- Col 5 -->
+     <td>2</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 5 -->
+     <td>4</td><!-- Col 1 -->
+     <td>Woman Issues</td><!-- Col 2 -->
+     <td>4</td><!-- Col 3 -->
+     <td>4</td><!-- Col 4 -->
+     <td>8</td><!-- Col 5 -->
+     <td>18</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 6 -->
+     <td>5</td><!-- Col 1 -->
+     <td>Highlights of the Year</td><!-- Col 2 -->
+     <td>8</td><!-- Col 3 -->
+     <td>7</td><!-- Col 4 -->
+     <td>5</td><!-- Col 5 -->
+     <td>6</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 7 -->
+     <td>6</td><!-- Col 1 -->
+     <td>Listicles</td><!-- Col 2 -->
+     <td>2</td><!-- Col 3 -->
+     <td>14</td><!-- Col 4 -->
+     <td>6</td><!-- Col 5 -->
+     <td>19</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 8 -->
+     <td>7</td><!-- Col 1 -->
+     <td>White House</td><!-- Col 2 -->
+     <td>6</td><!-- Col 3 -->
+     <td>11</td><!-- Col 4 -->
+     <td>7</td><!-- Col 5 -->
+     <td>7</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 9 -->
+     <td>8</td><!-- Col 1 -->
+     <td>Ebolas</td><!-- Col 2 -->
+     <td>48</td><!-- Col 3 -->
+     <td>5</td><!-- Col 4 -->
+     <td>31</td><!-- Col 5 -->
+     <td>30</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 10 -->
+     <td>9</td><!-- Col 1 -->
+     <td>Ebola in Texas</td><!-- Col 2 -->
+     <td>24</td><!-- Col 3 -->
+     <td>8</td><!-- Col 4 -->
+     <td>65</td><!-- Col 5 -->
+     <td>4</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 11 -->
+     <td>10</td><!-- Col 1 -->
+     <td>Ebola in Texas</td><!-- Col 2 -->
+     <td>19</td><!-- Col 3 -->
+     <td>6</td><!-- Col 4 -->
+     <td>60</td><!-- Col 5 -->
+     <td>28</td><!-- Col 6 -->
+  </tr>
+  <tr><!-- Row 12 -->
+     <td>11</td><!-- Col 1 -->
+     <td>Bill Cosby</td><!-- Col 2 -->
+     <td>34</td><!-- Col 3 -->
+     <td>24</td><!-- Col 4 -->
+     <td>3</td><!-- Col 5 -->
+     <td>15</td><!-- Col 6 -->
+  </tr>
+</table>
+
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h5><b>The different groups of news organizations have very different preference of topics:</b></h5>
+	<p>The top 10 topics from Twitter are a bit different from the top 10 list from Facebook. Again, New York shows up at the very top of the list. Some similar issues that were discussed heavily on Twitter were President Obama (minus the immigration policy), ISIS, White House, and Ebola. However, there were a couple of topics that were not on Facebook. For example, on Twitter we find Women's Issues, Listicles, and Bill Cosby. Furthermore, we observe due to the 140 character limit, the LDA topic model gave us concise results that were much easier to interpret.</p>
+	<p>From the above table, there are several interesting observations we can draw. First, we find the <strong>Teal</strong> group's content on twitter to be very different from the rest of the three groups. The main differences are on the topics ISIS (ranked 95), Ebola (31), and Ebola in Texas (ranked 60, 65). While these topics are ranked in the top 10 for the entire 25 news organizations, these topics are not heavily reported on by Slate, ABC News, and The Daily Beast. In addition, the topics reported by the <strong>Green</strong> group on Twitter is very different from those reported on Facebook, specifically, ISIS has now moved up from 301 to 14. However, overall, most of the top 10 topics for the entire 25 news organizations are still under represented in the <strong>Green</strong> group.</p>
+	<!-- End content editing. -->
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h5><b>Limitations</b></h5>
+	<p>Auto generated topics from the topic modeling might not be representative. The topic model is forced to classify the posts as the number of topics we specified, rather than to classify the posts based on their similarity. Some posts with an uncommon topic might be classified to the same group as another uncommon topic because there are too few similar posts. Some topics might be too popular so the classifier generates more than one topic for them because the model does not prefer to have too many posts classified in one topic, such as the topics “Ebola,” “Ebola in Texas” in Twitter.</p>
+	<!-- End content editing. -->
+</div>
+
+<div class="container">
+	<!-- Edit main content here. -->
+	<h4><b>Conclusion</b></h4>
+	<p>The topic modeling results reinforce the results we found in the clustering analysis with social media metrics. From the tables above, we see that the top 10 topics for the four groups are all very different. Therefore, it is possible to conclude that there is an association of different content/topics to differences in social metrics (likes, retweets, and etc). This makes intuitive sense as there are topics that are inherently more popular than others. This is also what we observe in our data and in our news organizations clusters.</p>
+	<!-- End content editing. -->
+</div>
+
+<!-- Bootstrap core JavaScript. Placed at the end of the document so the pages load faster. -->
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script src="./bootstrap-3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
